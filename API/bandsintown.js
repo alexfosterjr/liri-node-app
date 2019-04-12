@@ -1,16 +1,15 @@
+require('dotenv').config();
 var inquirer = require("inquirer");
 var axios = require("axios");
 var moment = require("moment");
 
 function concertInfo() {
-    inquirer.prompt([
-        {
-            type: "input",
-            name: "artist",
-            message: "Who would you like to look up concert information for?"
-        },
-    ]).then(function (user) {
-        var queryUrl = "https://rest.bandsintown.com/artists/" + user.artist + "/events?app_id=codingbootcamp";
+    inquirer.prompt([{
+        type: "input",
+        name: "artist",
+        message: "Who would you like to look up concert information for?"
+    }, ]).then(function (user) {
+        var queryUrl = "https://rest.bandsintown.com/artists/" + user.artist + "/events?app_id=" + process.env.bandsintown_key;
 
         axios.get(queryUrl).then(
             function (response) {
@@ -24,8 +23,7 @@ function concertInfo() {
                         console.log("******************************************");
                         console.log("");
                     }
-                }
-                else {
+                } else {
                     console.log("Maybe the band broke up cause they have no concerts coming up");
                 }
 

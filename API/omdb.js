@@ -1,3 +1,4 @@
+require('dotenv').config();
 var inquirer = require("inquirer");
 var axios = require("axios");
 
@@ -7,7 +8,7 @@ function movieInfo() {
         name: "movie",
         message: "Please type the name of a movie you would like information on"
     }, ]).then(function (user) {
-        queryUrl = "http://www.omdbapi.com/?t=" + user.movie + "&y=&plot=short&apikey=trilogy";
+        queryUrl = "http://www.omdbapi.com/?t=" + user.movie + "&y=&plot=short&apikey=" + process.env.omdb_key;
         axios.get(queryUrl).then(
             function (response) {
                 if (response.data.Title != undefined) {
